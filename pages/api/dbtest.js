@@ -1,6 +1,3 @@
-export default async function handler(req, res) {
-  res.status(200).json({ message: "API is working!" });
-}
 import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
@@ -24,7 +21,7 @@ if (process.env.NODE_ENV === "development") {
   clientPromise = client.connect();
 }
 
-// ✅ Default export: API handler
+// ✅ Only ONE default export
 export default async function handler(req, res) {
   try {
     const client = await clientPromise;
@@ -33,7 +30,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({
       success: true,
-      collections: collections.map((col) => col.name), // cleaner output
+      collections: collections.map((col) => col.name),
     });
   } catch (err) {
     res.status(500).json({
